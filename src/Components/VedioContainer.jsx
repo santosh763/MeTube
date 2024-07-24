@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import VedioCard from './VedioCard'
+import VedioCard,{AdVedioCard} from './VedioCard'
 import { YOUTUBE_VEDIO_API } from '../utils/constans';
 import { Link } from 'react-router-dom';
 
@@ -16,9 +16,10 @@ const VedioContainer = () => {
   }
   return (
     <div className='flex flex-wrap gap-7'>
-      {videoData.map((item) => {
+      {videoData.length>1 && <AdVedioCard videoData={videoData[2]}/>}
+      {videoData?.map((item) => {
         return (
-          <Link to={"/watch?v="+item.id}><VedioCard key={item.id} videoData={item} /></Link>
+          <Link to={"/watch?v="+item.id} key={item.id} ><VedioCard  videoData={item} /></Link>
         )
       })}
     </div>
