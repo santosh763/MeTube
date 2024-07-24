@@ -45,11 +45,19 @@ const formatedTime=(publishedDate)=>{
     <div>
       <p className='w-full flex-row overflow-ellipsis'>{props?.videoData?.snippet?.title}</p>
       <p>{props?.videoData?.snippet?.channelTitle}</p>
-      <p>{`${formatViews(props?.videoData?.statistics?.viewCount)} views  ${formatedTime(props?.videoData?.snippet?.publishedAt)} ego `}</p>
+      <p>{`${formatViews(props?.videoData?.statistics?.viewCount)} views  ${formatedTime(props?.videoData?.snippet?.publishedAt)} ago `}</p>
     </div>
     </div>
     </div>
 
+  )
+}
+
+export const AdVedioCard =(props)=>{
+  return (
+    <div className='border border-red-600 p-1'>
+      <VedioCard videoData={props?.videoData}/>
+    </div>
   )
 }
 
