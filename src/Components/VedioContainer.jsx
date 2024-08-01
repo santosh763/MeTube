@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import VedioCard from './VedioCard'
+import VedioCard,{AdVedioCard} from './VedioCard'
 import { YOUTUBE_VEDIO_API } from '../utils/constans';
 import { Link } from 'react-router-dom';
 
