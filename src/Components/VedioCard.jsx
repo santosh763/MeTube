@@ -9,7 +9,7 @@ const VedioCard = (props) => {
     } else if (views >= 1_000) {
         return (views / 1_000).toFixed(1) + 'K';
     } else {
-        return views.toString();
+        return views?.toString();
     }
 }
 const formatedTime=(publishedDate)=>{

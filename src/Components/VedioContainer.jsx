@@ -16,9 +16,10 @@ const VedioContainer = () => {
   }
   return (
     <div className='flex flex-wrap gap-7'>
+      {}
       {videoData.map((item) => {
         return (
-          <Link to={"/watch?v="+item.id}><VedioCard key={item.id} videoData={item} /></Link>
+          <Link to={"/watch?v="+item.id} key={item.id} ><VedioCard videoData={item} /></Link>
         )
       })}
     </div>
