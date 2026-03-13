@@ -33,23 +33,21 @@ const formatedTime=(publishedDate)=>{
 }
 
   return (
-    <div className='flex flex-col w-[250px]'>
-    <div className='w-full rounded-md'>
-      
-      <img src={props?.videoData?.snippet?.thumbnails?.high?.url} alt='' className='w-full h-[150px] rounded-md'/>
+    <div className='flex flex-col w-[320px] h-[320px] bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-200 overflow-hidden border border-gray-100 dark:border-gray-700 group'>
+      <div className='w-full aspect-video bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden'>
+        <img src={props?.videoData?.snippet?.thumbnails?.high?.url} alt='' className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-300'/>
+      </div>
+      <div className='flex gap-3 p-3'>
+        <div className='flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-tr from-pink-400 via-red-400 to-yellow-400 dark:from-pink-700 dark:via-red-700 dark:to-yellow-600 flex items-center justify-center text-white font-bold text-lg shadow'>
+          <span>{props?.videoData?.snippet?.channelTitle?.[0] || 'C'}</span>
+        </div>
+        <div className='flex flex-col min-w-0'>
+          <p className='font-semibold text-gray-900 dark:text-gray-100 truncate'>{props?.videoData?.snippet?.title}</p>
+          <p className='text-xs text-gray-600 dark:text-gray-400 truncate'>{props?.videoData?.snippet?.channelTitle}</p>
+          <p className='text-xs text-gray-500 dark:text-gray-400'>{`${formatViews(props?.videoData?.statistics?.viewCount)} views  ${formatedTime(props?.videoData?.snippet?.publishedAt)} ago `}</p>
+        </div>
+      </div>
     </div>
-    <div className='flex '>
-    <div className='avtar'>
-      <img src='' alt=' '/>
-    </div>
-    <div>
-      <p className='w-full flex-row overflow-ellipsis'>{props?.videoData?.snippet?.title}</p>
-      <p>{props?.videoData?.snippet?.channelTitle}</p>
-      <p>{`${formatViews(props?.videoData?.statistics?.viewCount)} views  ${formatedTime(props?.videoData?.snippet?.publishedAt)} ago `}</p>
-    </div>
-    </div>
-    </div>
-
   )
 }
 

@@ -15,16 +15,11 @@ const VedioContainer = () => {
     setVideoData(json?.items)
   }
   return (
-    <div className='flex flex-wrap gap-7'>
-      {}
-      {videoData.map((item) => {
-        return (
-          <Link to={"/watch?v="+item.id} key={item.id} ><VedioCard videoData={item} /></Link>
-        )
-      })}
+    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 w-full'>
+      {videoData.map((item) => (
+        <Link to={"/watch?v="+item.id} key={item.id} className="flex justify-center"> <VedioCard videoData={item} /></Link>
+      ))}
     </div>
-
-
   )
 }
 

@@ -11,7 +11,7 @@ import { toggleSideBar } from '../utils/appSlice';
 import { setCacheResults,setSearchKeyWord} from '../utils/searchSlice';
 
 
-const Header = () => {
+const Header = ({ darkMode, setDarkMode }) => {
   const dispatch = useDispatch()
   const [serchText,setSearchText]=useState("")
   const [suggestion,setSuggestion]=useState([]);
@@ -52,52 +52,97 @@ const searchKeyWord=useSelector((store)=>store.search.searchKeyWord)
   }
   // console.log("searchKeyWord",searchKeyWord);
   return (
-    <div className="flex justify-between  py-3  items-center sticky top-0 bg-white z-10">
-      <div className='flex gap-3 items-center'>
-        <button onClick={() => dispatch(toggleSideBar())}>
-          <MenuIcon />
+    <header className="sticky top-0 z-30 w-full bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+      {/* Desktop header */}
+      <div className="hidden md:flex justify-between items-center px-2 md:px-6 py-2 gap-2">
+        <div className='flex gap-3 items-center'>
+          <button onClick={() => dispatch(toggleSideBar())} className="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <MenuIcon className="text-gray-700 dark:text-gray-200" />
+          </button>
+          <a href="/">
+            <div className='flex items-center gap-1 text-xl font-bold text-red-600 dark:text-red-400'>
+              <YouTubeIcon fontSize="large" />
+              <span className="tracking-tight">MeTube</span>
+            </div>
+          </a>
+        </div>
+        <div className='flex gap-3 items-center flex-1 max-w-xl mx-4'>
+          <div className='flex flex-col relative w-full'>
+            <div className='bg-gray-100 dark:bg-gray-800 rounded-xl gap-1 items-center flex pr-1 border border-gray-300 dark:border-gray-700 focus-within:ring-2 focus-within:ring-blue-400 w-full'>
+              <input
+                type='text'
+                className='w-full h-9 px-3 rounded-xl bg-transparent outline-none text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400'
+                value={serchText}
+                onChange={(e)=>{setSearchText(e.target.value)}}
+                onFocus={()=>setShowsuggestion(true)}
+                onBlur={()=>setShowsuggestion(false)}
+                placeholder="Search..."
+              />
+              <button className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full">
+                <SearchIcon className="text-gray-600 dark:text-gray-300" />
+              </button>
+            </div>
+            {showsuggestion &&
+              <div className='w-full flex flex-col bg-white dark:bg-gray-800 absolute top-11 left-0 z-[20] p-3 rounded-md shadow-lg border border-gray-200 dark:border-gray-700'>
+                { suggestion.length>1 && suggestion?.map((item)=><div key={item} className='mb-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 px-2 py-1 rounded' >{item}</div>)}
+              </div>
+            }
+          </div>
+          <div className='rounded-full w-[36px] h-[36px] bg-gray-200 dark:bg-gray-700 items-center justify-center flex shadow'>
+            <MicIcon className="text-gray-700 dark:text-gray-200" />
+          </div>
+        </div>
+        <div className='flex gap-2 items-center'>
+          <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <VideoCallIcon className="text-gray-700 dark:text-gray-200" />
+          </button>
+          <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <NotificationsIcon className="text-gray-700 dark:text-gray-200" />
+          </button>
+          <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <AccountCircleIcon className="text-gray-700 dark:text-gray-200" />
+          </button>
+        </div>
+        <div className="ml-2">
+          <button
+            className="rounded-full px-3 py-1 text-xs font-semibold border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 shadow hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+            onClick={() => setDarkMode((d) => !d)}
+            aria-label="Toggle dark mode"
+          >
+            {darkMode ? '🌙 Dark' : '☀️ Light'}
+          </button>
+        </div>
+      </div>
+      {/* Mobile header */}
+      <div className="flex md:hidden items-center justify-between px-2 py-1 gap-1">
+        <button onClick={() => dispatch(toggleSideBar())} className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <MenuIcon className="text-gray-700 dark:text-gray-200" fontSize="small" />
         </button>
         <a href="/">
-          <div className='flex items-center'>
-            <YouTubeIcon />
-            MeTube
+          <div className='flex items-center gap-1 text-lg font-bold text-red-600 dark:text-red-400'>
+            <YouTubeIcon fontSize="medium" />
+            <span className="tracking-tight">MeTube</span>
           </div>
         </a>
+        <div className="flex-1 flex justify-center items-center px-1">
+          <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-full border border-gray-300 dark:border-gray-700 w-full max-w-[180px]">
+            <input
+              type="text"
+              className="w-full h-7 px-2 rounded-full bg-transparent outline-none text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-xs"
+              value={serchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              placeholder="Search..."
+            />
+            <button className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full">
+              <SearchIcon className="text-gray-600 dark:text-gray-300" fontSize="small" />
+            </button>
+          </div>
+        </div>
+        <button className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <AccountCircleIcon className="text-gray-700 dark:text-gray-200" fontSize="small" />
+        </button>
       </div>
-      <div className='flex gap-3 items-center'>
-        <div className='flex flex-col'>
-        <div className='bg-slate-500 rounded-xl gap-1 items-center flex pr-1'>
-          <input
-            type='text'
-            className='w-300px h-full rounded-xl border border-gray-400 '
-            value={serchText}
-            onChange={(e)=>{setSearchText(e.target.value)}}
-            onFocus={()=>setShowsuggestion(true)}
-            onBlur={()=>setShowsuggestion(false)}
-          />
-          <SearchIcon />
-        </div>
-        {showsuggestion &&
-        <div className='w-[200px] flex bg-white absolute top-10 z-[20] p-5 rounded-md'>
-        
-        { suggestion.length>1 && suggestion?.map((item)=><div key={item} className='mb-2 cursor-pointer' >{item}</div>)}
-       
-        </div>
-        }
-        
-        </div>
-        <div className='rounded-full w-[30px] h-[30px] bg-slate-300 items-center justify-center flex'>
-          <MicIcon />
-        </div>
-      </div>
-      <div className='flex gap-2 items-center'>
-        <VideoCallIcon />
-        <NotificationsIcon />
-        <AccountCircleIcon />
-      </div>
-
-
-    </div>
+    </header>
   )
 }
 

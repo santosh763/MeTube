@@ -17,18 +17,18 @@ const WatchPage = () => {
   }, [])
 
   return (
-    <div>
-      <iframe 
-      width="560" 
-      height="315" 
-      src={"https://www.youtube.com/embed/"+searchParam.get("v") }
-      title="YouTube video player"
-       frameBorder="0" 
-       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-       referrerPolicy="strict-origin-when-cross-origin" 
-       allowFullScreen>
-        
-       </iframe>
+    <div className="flex justify-center items-center w-full min-h-[60vh] bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+      <div className="w-full max-w-3xl aspect-video bg-black rounded-lg overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
+        <iframe
+          className="w-full h-full"
+          src={"https://www.youtube.com/embed/" + searchParam.get("v")}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        />
+      </div>
     </div>
   )
 }
